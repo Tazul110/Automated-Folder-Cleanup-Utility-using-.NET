@@ -10,8 +10,8 @@ namespace OpenFolder
     public partial class Opendirectory : Form
     {
         private string selectedFolderPath;
+        List<string> lstDirectory = new List<string>();
 
-        List<string> lstDirectory =new List<string>();
         public Opendirectory()
         {
             InitializeComponent();
@@ -19,11 +19,7 @@ namespace OpenFolder
 
         private void Opendirectory_Load(object sender, EventArgs e)
         {
-            // Set the TextBox text to the selected folder path if it's not null or empty
-            /*if (!string.IsNullOrEmpty(selectedFolderPath))
-            {
-                textBox1.Text = selectedFolderPath;
-            }*/
+            // Initialization logic if needed
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -35,9 +31,9 @@ namespace OpenFolder
                 {
                     selectedFolderPath = folder.SelectedPath;
                     lstDirectory.Add(selectedFolderPath);
+                    listBox1.Items.Add(selectedFolderPath); // Add the selected path to the ListBox
                     textBox1.Text = selectedFolderPath;
                 }
-                
             }
         }
 
@@ -63,7 +59,7 @@ namespace OpenFolder
                 foreach (string folder in lstDirectory)
                 {
                     var files = Directory.GetFiles(folder);
-                   
+
                     foreach (var file in files)
                     {
                         if (File.GetLastWriteTime(file) < thresholdDate)
@@ -73,12 +69,12 @@ namespace OpenFolder
                         }
                     }
                 }
-               
 
                 MessageBox.Show($"{cnt} Files older than the specified number of days have been deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //MessageBox.Show("{cnt Files older than the specified number of days have been deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 textBox1.Clear();
                 textBox2.Clear();
+                listBox1.Items.Clear(); // Clear all items in the ListBox
+                lstDirectory.Clear(); // Clear the list of directories
                 selectedFolderPath = string.Empty;
                 dateTimePicker1.Value = DateTime.Now;
                 dateTimePicker2.Value = DateTime.Now;
@@ -89,8 +85,6 @@ namespace OpenFolder
                 MessageBox.Show($"An error occurred while deleting files: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-     
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
@@ -107,15 +101,14 @@ namespace OpenFolder
             textBox.SelectionStart = textBox.Text.Length;
         }
 
-      
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-
+            // Handle dateTimePicker1 value changed event
         }
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
-
+            // Handle dateTimePicker2 value changed event
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -141,7 +134,7 @@ namespace OpenFolder
                 foreach (var folder in lstDirectory)
                 {
                     var files = Directory.GetFiles(folder);
-                    
+
                     foreach (var file in files)
                     {
                         DateTime fileDate = File.GetLastWriteTime(file);
@@ -152,12 +145,13 @@ namespace OpenFolder
                         }
                     }
                 }
-                
 
                 MessageBox.Show($"{cnt} Files between the specified dates have been deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 textBox1.Clear();
                 textBox2.Clear();
+                listBox1.Items.Clear(); // Clear all items in the ListBox
+                lstDirectory.Clear(); // Clear the list of directories
                 selectedFolderPath = string.Empty;
                 dateTimePicker1.Value = DateTime.Now;
                 dateTimePicker2.Value = DateTime.Now;
@@ -165,6 +159,15 @@ namespace OpenFolder
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while deleting files: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                string selectedPath = listBox1.SelectedItem.ToString();
+                MessageBox.Show(selectedPath, "Selected Path", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
