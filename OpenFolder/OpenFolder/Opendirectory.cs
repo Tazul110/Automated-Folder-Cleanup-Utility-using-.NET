@@ -33,6 +33,7 @@ namespace OpenFolder
                     lstDirectory.Add(selectedFolderPath);
                     listBox1.Items.Add(selectedFolderPath); // Add the selected path to the ListBox
                     textBox1.Text = selectedFolderPath;
+                    checkedListBox1.Items.Add(selectedFolderPath); // Add the selected path to the CheckedListBox
                 }
             }
         }
@@ -62,17 +63,24 @@ namespace OpenFolder
 
                     foreach (var file in files)
                     {
-                        if (File.GetLastWriteTime(file) < thresholdDate)
+                        if (File.GetLastWriteTime(file) < thresholdDate &&  (checkedListBox1.CheckedItems.Contains(folder) && File.Exists(file)))
                         {
                             cnt++;
                             File.Delete(file);
                         }
+                        
                     }
+                    // Remove the folder from the CheckedListBox if it was checked and files were deleted
+                    /*if (checkedListBox1.CheckedItems.Contains(folder))
+                    {
+                        checkedListBox1.Items.Remove(folder);      
+                    }*/
                 }
 
                 MessageBox.Show($"{cnt} Files older than the specified number of days have been deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 textBox1.Clear();
                 textBox2.Clear();
+                checkedListBox1.Items.Clear();
                 listBox1.Items.Clear(); // Clear all items in the ListBox
                 lstDirectory.Clear(); // Clear the list of directories
                 selectedFolderPath = string.Empty;
@@ -138,7 +146,7 @@ namespace OpenFolder
                     foreach (var file in files)
                     {
                         DateTime fileDate = File.GetLastWriteTime(file);
-                        if (fileDate.Date >= startDate.Date && fileDate.Date <= endDate.Date)
+                        if ((fileDate.Date >= startDate.Date && fileDate.Date <= endDate.Date) && (checkedListBox1.CheckedItems.Contains(folder) && File.Exists(file)))
                         {
                             cnt++;
                             File.Delete(file);
@@ -150,6 +158,7 @@ namespace OpenFolder
 
                 textBox1.Clear();
                 textBox2.Clear();
+                checkedListBox1.Items.Clear();
                 listBox1.Items.Clear(); // Clear all items in the ListBox
                 lstDirectory.Clear(); // Clear the list of directories
                 selectedFolderPath = string.Empty;
@@ -168,6 +177,19 @@ namespace OpenFolder
             {
                 string selectedPath = listBox1.SelectedItem.ToString();
                 MessageBox.Show(selectedPath, "Selected Path", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (checkedListBox1.CheckedItems.Count > 0)
+            {
+                string selectedPaths = "Selected Paths:\n";
+                foreach (var item in checkedListBox1.CheckedItems)
+                {
+                    selectedPaths += item.ToString() + "\n";
+                }
+                MessageBox.Show(selectedPaths, "Selected Paths", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
