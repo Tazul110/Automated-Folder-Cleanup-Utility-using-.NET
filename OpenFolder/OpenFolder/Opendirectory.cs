@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -10,6 +11,7 @@ namespace OpenFolder
     {
         private string selectedFolderPath;
 
+        List<string> lstDirectory =new List<string>();
         public Opendirectory()
         {
             InitializeComponent();
@@ -18,10 +20,10 @@ namespace OpenFolder
         private void Opendirectory_Load(object sender, EventArgs e)
         {
             // Set the TextBox text to the selected folder path if it's not null or empty
-            if (!string.IsNullOrEmpty(selectedFolderPath))
+            /*if (!string.IsNullOrEmpty(selectedFolderPath))
             {
                 textBox1.Text = selectedFolderPath;
-            }
+            }*/
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -32,8 +34,10 @@ namespace OpenFolder
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folder.SelectedPath))
                 {
                     selectedFolderPath = folder.SelectedPath;
+                    lstDirectory.Add(selectedFolderPath);
                     textBox1.Text = selectedFolderPath;
                 }
+                
             }
         }
 
@@ -55,16 +59,21 @@ namespace OpenFolder
 
             try
             {
-                var files = Directory.GetFiles(selectedFolderPath);
                 int cnt = 0;
-                foreach (var file in files)
+                foreach (string folder in lstDirectory)
                 {
-                    if (File.GetLastWriteTime(file) < thresholdDate)
+                    var files = Directory.GetFiles(folder);
+                   
+                    foreach (var file in files)
                     {
-                        cnt++;
-                        File.Delete(file);
+                        if (File.GetLastWriteTime(file) < thresholdDate)
+                        {
+                            cnt++;
+                            File.Delete(file);
+                        }
                     }
                 }
+               
 
                 MessageBox.Show($"{cnt} Files older than the specified number of days have been deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //MessageBox.Show("{cnt Files older than the specified number of days have been deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -120,7 +129,7 @@ namespace OpenFolder
             DateTime startDate = dateTimePicker1.Value;
             DateTime endDate = dateTimePicker2.Value;
 
-            if (startDate > endDate)
+            if (startDate.Date > endDate.Date)
             {
                 MessageBox.Show("The start date must be earlier than the end date.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -128,17 +137,22 @@ namespace OpenFolder
 
             try
             {
-                var files = Directory.GetFiles(selectedFolderPath);
                 int cnt = 0;
-                foreach (var file in files)
+                foreach (var folder in lstDirectory)
                 {
-                    DateTime fileDate = File.GetLastWriteTime(file);
-                    if (fileDate >= startDate && fileDate <= endDate)
+                    var files = Directory.GetFiles(folder);
+                    
+                    foreach (var file in files)
                     {
-                        cnt++;
-                        File.Delete(file);
+                        DateTime fileDate = File.GetLastWriteTime(file);
+                        if (fileDate.Date >= startDate.Date && fileDate.Date <= endDate.Date)
+                        {
+                            cnt++;
+                            File.Delete(file);
+                        }
                     }
                 }
+                
 
                 MessageBox.Show($"{cnt} Files between the specified dates have been deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

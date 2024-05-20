@@ -8,3 +8,13 @@ C:\Users\TN-99345\Desktop\folderPath\OpenFolder\OpenFolder\obj\Debug\OpenFolder.
 C:\Users\TN-99345\Desktop\folderPath\OpenFolder\OpenFolder\obj\Debug\OpenFolder.csproj.CoreCompileInputs.cache
 C:\Users\TN-99345\Desktop\folderPath\OpenFolder\OpenFolder\obj\Debug\OpenFolder.exe
 C:\Users\TN-99345\Desktop\folderPath\OpenFolder\OpenFolder\obj\Debug\OpenFolder.pdb
+C:\Users\TN-99345\Downloads\Automated-Folder-Cleanup-Utility-using-.NET-main\OpenFolder\OpenFolder\bin\Debug\OpenFolder.exe.config
+C:\Users\TN-99345\Downloads\Automated-Folder-Cleanup-Utility-using-.NET-main\OpenFolder\OpenFolder\bin\Debug\OpenFolder.exe
+C:\Users\TN-99345\Downloads\Automated-Folder-Cleanup-Utility-using-.NET-main\OpenFolder\OpenFolder\bin\Debug\OpenFolder.pdb
+C:\Users\TN-99345\Downloads\Automated-Folder-Cleanup-Utility-using-.NET-main\OpenFolder\OpenFolder\obj\Debug\OpenFolder.csproj.AssemblyReference.cache
+C:\Users\TN-99345\Downloads\Automated-Folder-Cleanup-Utility-using-.NET-main\OpenFolder\OpenFolder\obj\Debug\OpenFolder.Opendirectory.resources
+C:\Users\TN-99345\Downloads\Automated-Folder-Cleanup-Utility-using-.NET-main\OpenFolder\OpenFolder\obj\Debug\OpenFolder.Properties.Resources.resources
+C:\Users\TN-99345\Downloads\Automated-Folder-Cleanup-Utility-using-.NET-main\OpenFolder\OpenFolder\obj\Debug\OpenFolder.csproj.GenerateResource.cache
+C:\Users\TN-99345\Downloads\Automated-Folder-Cleanup-Utility-using-.NET-main\OpenFolder\OpenFolder\obj\Debug\OpenFolder.csproj.CoreCompileInputs.cache
+C:\Users\TN-99345\Downloads\Automated-Folder-Cleanup-Utility-using-.NET-main\OpenFolder\OpenFolder\obj\Debug\OpenFolder.exe
+C:\Users\TN-99345\Downloads\Automated-Folder-Cleanup-Utility-using-.NET-main\OpenFolder\OpenFolder\obj\Debug\OpenFolder.pdb
